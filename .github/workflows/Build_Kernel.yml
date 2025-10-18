@@ -253,8 +253,8 @@ jobs:
                       -d MI_MEMORY_SYSFS \
                       -e TASK_DELAY_ACCT \
                       -e MIUI_ZRAM_MEMORY_TRACKING \
-                      -d CONFIG_MODULE_SIG_SHA512 \
-                      -d CONFIG_MODULE_SIG_HASH \
+                      -d MODULE_SIG_SHA512 \
+                      -d MODULE_SIG_HASH \
                       -e MI_FRAGMENTION \
                       -e PERF_HELPER \
                       -e BOOTUP_RECLAIM \
