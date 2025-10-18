@@ -1,7 +1,11 @@
 #!/bin/bash
 
-# Some logics of this script are copied from [scripts/build_kernel]. Thanks to UtsavBalar1231.
-# Ensure the script exits on error
+# This build script references and adapts logic from:
+# - [scripts/build_kernel] by UtsavBalar1231
+# - [build.sh] by liyafe1997
+# - [.github/workflows/Build_Kernel.yml] by yspbwx2010
+# Many thanks to their authors for the inspiration.
+
 set -e
 
 TOOLCHAIN_PATH=$HOME/toolchain/google-clang/bin
@@ -9,13 +13,7 @@ GIT_COMMIT_ID=$(git rev-parse --short=8 HEAD)
 TARGET_DEVICE=$1
 
 if [ -z "$1" ]; then
-    echo "Error: No argument provided, please specific a target device."
-    echo "If you need KernelSU, please add [ksu] as the second arg."
-    echo "Examples:"
-    echo "Build for lmi(K30 Pro/POCO F2 Pro) without KernelSU:"
-    echo "    bash build.sh lmi"
-    echo "Build for umi(Mi10) with KernelSU:"
-    echo "    bash build.sh umi ksu"
+    echo "Error: No argument provided. Check the README (Build section)."
     exit 1
 fi
 
@@ -285,7 +283,6 @@ Image_Repack() {
     mkdir -p anykernel/kernels/
     cp out/arch/arm64/boot/Image anykernel/kernels/
     cp out/arch/arm64/boot/dtb anykernel/kernels/
-
     cd anykernel
 
     if [ "$1" == "MIUI" ]; then
@@ -297,6 +294,7 @@ Image_Repack() {
     zip -r9 $ZIP_FILENAME ./* -x .git .gitignore out/ ./*.zip
     mv $ZIP_FILENAME ../
     cd ..
+    echo "Done. The flashable zip is: [./$ZIP_FILENAME]"
 }
 
 Patch_KPM() {
@@ -324,5 +322,3 @@ else
     Build_AOSP
     Build_MIUI
 fi
-
-echo "Done. The flashable zip is: [./$ZIP_FILENAME]"
