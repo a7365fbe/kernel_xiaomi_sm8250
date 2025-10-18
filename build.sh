@@ -76,7 +76,7 @@ KSU_VERSION=$2
 TARGET_SYSTEM=$3
 
 echo "TARGET_DEVICE: $TARGET_DEVICE"
-KSU_ENABLE=$([[ "$KSU_VERSION" == "ksu" || "$KSU_VERSION" == "rksu" || "$KSU_VERSION" == "sukisu" ]] && echo 1 || echo 0)
+KSU_ENABLE=$([[ "$KSU_VERSION" == "ksu" || "$KSU_VERSION" == "rksu" || "$KSU_VERSION" == "sukisu-kpm" || "$KSU_VERSION" == "sukisu" ]] && echo 1 || echo 0)
 
 # KernelSU setup
 case "$KSU_VERSION" in
